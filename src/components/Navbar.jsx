@@ -2,12 +2,20 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Button } from "@heroui/react";
+import { Avatar, Button } from "@heroui/react";
+import { authClient } from "@/lib/auth-client";
 
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {
+    data: session,
+    isPending, //loading state
+    error, //error object
+    refetch //refetch the session
+  } = authClient.useSession()
 
+  const user = session?.user;
   const navLinks = [
     {
       label: "Browse Jobs",
@@ -62,21 +70,33 @@ export default function Navbar() {
 
             {/* Auth Links */}
             <div className="flex items-center gap-4">
-              <Link
-                href="/signin"
-                className="text-sm font-medium text-violet-400 transition hover:text-violet-300"
-              >
-                Sign In
-              </Link>
+              {isPending ? <div className="flex items-center justify-center py-10">
+                <div className="h-5 w-5 animate-spin rounded-full border-4 border-zinc-300 border-t-blue-600 dark:border-zinc-700 dark:border-t-blue-400"></div>
+              </div>
+                : user ? <>
+                  <p>Welcome! <strong>{user.name}</strong></p>
+                  <Button variant="danger" onClick={() => authClient.signOut()}>Sign Out</Button>
+                </>
+                  : <>
+                    <Link
+                      href="/signin"
+                      className="text-sm font-medium text-violet-400 transition hover:text-violet-300"
+                    >
+                      Sign In
+                    </Link>
+                    <Link href="/signup">
+                      <Button
+                        radius="lg"
+                        className="h-11 bg-white px-6 text-sm font-semibold text-black hover:bg-gray-200"
+                      >
+                        Get Started
+                      </Button>
+                    </Link>
+                  </>}
 
-              <Link href="/signup">
-                <Button
-                  radius="lg"
-                  className="h-11 bg-white px-6 text-sm font-semibold text-black hover:bg-gray-200"
-                >
-                  Get Started
-                </Button>
-              </Link>
+
+
+
             </div>
           </div>
 
