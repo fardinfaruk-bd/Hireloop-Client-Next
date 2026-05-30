@@ -75,7 +75,7 @@ export default function HeroSection() {
           transition={{ delay: 0.1 }}
           className="mb-10 flex items-center gap-4"
         >
-          <div className="h-px w-16 bg-gradient-to-r from-transparent to-white/20" />
+          <div className="h-px w-16 bg-linear-to-r from-transparent to-white/20" />
 
           <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-2 backdrop-blur-xl">
             <Briefcase className="h-4 w-4 text-orange-400" />
@@ -207,7 +207,7 @@ export default function HeroSection() {
               whileTap={{
                 scale: 0.98,
               }}
-              className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-white/70 backdrop-blur-xl hover:bg-white/10"
+              className="rounded-full border border-white/10 bg-white/3 px-4 py-2 text-xs text-white/70 backdrop-blur-xl hover:bg-white/10"
             >
               {tag}
             </motion.button>
@@ -223,7 +223,7 @@ export default function HeroSection() {
             duration: 4,
             repeat: Infinity,
           }}
-          className="absolute bottom-0 left-1/2 h-[250px] w-[700px] -translate-x-1/2 rounded-full bg-violet-600/20 blur-[150px]"
+          className="absolute bottom-0 left-1/2 h-62.5 w-175 -translate-x-1/2 rounded-full bg-violet-600/20 blur-[150px]"
         />
 
         {/* Space for Globe */}
