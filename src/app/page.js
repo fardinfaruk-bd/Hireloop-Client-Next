@@ -1,8 +1,12 @@
+import HeroSection from "@/components/Banner";
 import StatsSection from "@/components/StatsSection";
-
+import { div } from "motion/react-client";
 
 export default function Home() {
   return (
-    <StatsSection />
+    <div>
+      <HeroSection />
+      <StatsSection />
+    </div>
   );
 }
