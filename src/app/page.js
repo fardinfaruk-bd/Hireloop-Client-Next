@@ -1,7 +1,8 @@
 import HeroSection from "@/components/Banner";
 import FeaturedJobsSection from "@/components/FeaturedJobsSection";
+import FeaturesSection from "@/components/FeaturedSection";
 import StatsSection from "@/components/StatsSection";
-import { div } from "motion/react-client";
+
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
       <HeroSection />
       <StatsSection />
       <FeaturedJobsSection />
+      <FeaturesSection />
     </div>
   );
 }

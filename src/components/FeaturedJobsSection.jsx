@@ -33,13 +33,13 @@ export default function FeaturedJobsSection() {
           className="mb-16 text-center"
         >
           <div className="mb-5 flex items-center justify-center gap-3">
-            <div className="h-1.5 w-1.5 rounded-full bg-violet-500" />
+            <div className="h-1.5 w-1.5 rounded-none bg-[#5C53FE]" />
 
             <span className="text-xs font-medium uppercase tracking-[0.25em] text-white/60">
               Smart Job Discovery
             </span>
 
-            <div className="h-1.5 w-1.5 rounded-full bg-violet-500" />
+            <div className="h-1.5 w-1.5 rounded- none bg-[#5C53FE]" />
           </div>
 
           <h2 className="mx-auto max-w-3xl text-4xl font-semibold leading-tight text-white md:text-6xl">
