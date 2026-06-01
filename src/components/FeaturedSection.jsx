@@ -121,16 +121,7 @@ export default function FeaturesSection() {
                     initial="hidden"
                     whileInView="show"
                     viewport={{ once: true, amount: 0.2 }}
-                    className="
-            grid
-            grid-cols-1
-            gap-5
-            sm:grid-cols-2
-            sm:gap-8
-            lg:grid-cols-4
-            lg:gap-x-10
-            lg:gap-y-12
-          "
+                    className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-8 lg:grid-cols-4 lg:gap-x-10 lg:gap-y-12"
                 >
                     {features.map((feature, index) => {
                         const Icon = feature.icon;
@@ -145,50 +136,14 @@ export default function FeaturesSection() {
                                 transition={{
                                     duration: 0.2,
                                 }}
-                                className="
-                  group
-                  flex
-                  items-start
-                  gap-4
-
-                  rounded-2xl
-                  border
-                  border-white/5
-                  bg-white/2
-                  p-4
-
-                  sm:border-0
-                  sm:bg-transparent
-                  sm:p-0
-                "
+                                className="group flex items-start gap-4 rounded-2xl border border-white/5 bg-white/2 p-4 sm:border-0 sm:bg-transparent sm:p-0"
                             >
                                 {/* Icon */}
                                 <motion.div
                                     whileHover={{
                                         scale: 1.05,
                                     }}
-                                    className="
-                    flex
-                    h-12
-                    w-12
-                    shrink-0
-                    items-center
-                    justify-center
-                    rounded-xl
-                    border
-                    border-white/10
-
-                    bg-linear-to-b
-                    from-white/4
-                    to-white/1
-                    shadow-[0_0_25px_rgba(139,92,246,0.08)]
-
-                    transition-all
-                    duration-300
-
-                    group-hover:border-violet-500/30
-                    group-hover:shadow-[0_0_35px_rgba(139,92,246,0.18)]
-                  "
+                                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-linear-to-b from-white/4 to-white/1 shadow-[0_0_25px_rgba(139,92,246,0.08)] transition-all duration-300 group-hover:border-violet-500/30 group-hover:shadow-[0_0_35px_rgba(139,92,246,0.18)]"
                                 >
                                     <Icon className="h-5 w-5 text-violet-300 transition-transform duration-300 group-hover:scale-110" />
                                 </motion.div>
