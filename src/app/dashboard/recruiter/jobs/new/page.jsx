@@ -11,9 +11,13 @@ import {
   Select, 
   ListBox, 
   FieldError, 
-  Button 
+  Button, 
 } from '@heroui/react';
 import { Briefcase, Pin, FileText, CircleCheckFill, ArrowUpRight } from '@gravity-ui/icons';
+import { createJob } from '@/lib/actions/jobs';
+import { redirect } from 'next/navigation';
+import { toast } from 'react-toastify';
+
 
 export default function PostJobPage() {
   const companyInfo = {
@@ -54,11 +58,12 @@ export default function PostJobPage() {
       createdAt: new Date().toISOString()
     };
 
-    console.log("Submitting Hero UI v3 payload to backend endpoint:", jobPayload);
-
-    await new Promise((resolve) => setTimeout(resolve, 1200));
-    setLoading(false);
-    alert("Job successfully saved as Active and made publicly visible!");
+    const res = await createJob(jobPayload);
+    if(res.insertedId) {
+      toast.success("Job posted successfully!");
+      e.target.reset();
+      redirect("/dashboard/recruiter");
+    }
   };
 
   return (
