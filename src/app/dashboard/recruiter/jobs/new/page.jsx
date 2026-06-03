@@ -53,7 +53,7 @@ export default function PostJobPage() {
         benefits: formRawEntries.benefits || ""
       },
       companyId: companyInfo.id,
-      status: "Active",
+      status: "active",
       isPublic: true,
       createdAt: new Date().toISOString()
     };

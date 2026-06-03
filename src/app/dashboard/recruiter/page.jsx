@@ -19,7 +19,7 @@ const RecruiterDashboardHomePage = () => {
     }
 
     const user = session?.user;
-    console.log(user);
+    
 
     const recruiterStats = [
         { title: "Total Job Posts", value: "48", icon: Briefcase },

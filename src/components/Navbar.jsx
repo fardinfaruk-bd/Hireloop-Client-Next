@@ -17,7 +17,6 @@ export default function Navbar() {
 
 
   const user = session?.user;
-  console.log(user);
   const navLinks = [
     {
       label: "Browse Jobs",
