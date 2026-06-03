@@ -15,7 +15,9 @@ export default function Navbar() {
     refetch //refetch the session
   } = authClient.useSession()
 
+
   const user = session?.user;
+  console.log(user);
   const navLinks = [
     {
       label: "Browse Jobs",

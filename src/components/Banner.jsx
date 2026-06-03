@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import {
   Magnifier,
@@ -9,24 +8,18 @@ import {
 } from "@gravity-ui/icons";
 
 export default function HeroSection() {
-  const [stars, setStars] = useState([]);
-
-  useEffect(() => {
-    const generatedStars = Array.from({ length: 60 }, (_, i) => ({
-      id: i,
-      left: Math.random() * 100,
-      top: 10 + Math.random() * 80,
-      duration: 2 + Math.random() * 4,
-    }));
-
-    setStars(generatedStars);
-  }, []);
-
   const tags = [
     "Product Designer",
     "AI Engineering",
     "DevOps Engineer",
   ];
+
+  const stars = Array.from({ length: 60 }, (_, i) => ({
+    id: i,
+    left: (i * 37) % 100,
+    top: 10 + ((i * 17) % 80),
+    duration: 2 + (i % 4),
+  }));
 
   return (
     <section className="relative overflow-hidden bg-black pt-24 md:pt-32">
@@ -37,14 +30,14 @@ export default function HeroSection() {
       <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.12),transparent_45%)]" />
 
       {/* Purple Spotlight */}
-      <div className="absolute left-1/2 top-48 -z-20 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-violet-600/10 blur-[160px]" />
+      <div className="absolute left-1/2 top-48 -z-20 h-125 w-125 -translate-x-1/2 rounded-full bg-violet-600/10 blur-[160px]" />
 
       {/* Animated Stars */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         {stars.map((star) => (
           <motion.span
             key={star.id}
-            className="absolute h-[2px] w-[2px] rounded-full bg-indigo-400"
+            className="absolute h-0.5 w-0.5 rounded-full bg-indigo-400"
             style={{
               left: `${star.left}%`,
               top: `${star.top}%`,
@@ -77,7 +70,7 @@ export default function HeroSection() {
         >
           <div className="h-px w-16 bg-linear-to-r from-transparent to-white/20" />
 
-          <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-2 backdrop-blur-xl">
+          <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2 backdrop-blur-xl">
             <Briefcase className="h-4 w-4 text-orange-400" />
 
             <span className="font-semibold text-white">
@@ -89,7 +82,7 @@ export default function HeroSection() {
             </span>
           </div>
 
-          <div className="h-px w-16 bg-gradient-to-l from-transparent to-white/20" />
+          <div className="h-px w-16 bg-linear-to-l from-transparent to-white/20" />
         </motion.div>
 
         {/* Heading */}
@@ -183,7 +176,7 @@ export default function HeroSection() {
           className="mt-6 flex flex-wrap items-center justify-center gap-2"
         >
           <span className="mr-1 text-sm text-white/40">
-            Trending Position
+            Trending Positions
           </span>
 
           {tags.map((tag, index) => (
@@ -207,7 +200,7 @@ export default function HeroSection() {
               whileTap={{
                 scale: 0.98,
               }}
-              className="rounded-full border border-white/10 bg-white/3 px-4 py-2 text-xs text-white/70 backdrop-blur-xl hover:bg-white/10"
+              className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/70 backdrop-blur-xl hover:bg-white/10"
             >
               {tag}
             </motion.button>
