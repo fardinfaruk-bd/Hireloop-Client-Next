@@ -62,7 +62,7 @@ export default function PostJobPage() {
     if(res.insertedId) {
       toast.success("Job posted successfully!");
       e.target.reset();
-      redirect("/dashboard/recruiter");
+      redirect("/dashboard/recruiter/jobs");
     }
   };
 

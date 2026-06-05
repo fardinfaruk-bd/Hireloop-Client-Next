@@ -1,5 +1,6 @@
 import { getCompanyJobs } from '@/lib/api/jobs';
-import { Table } from '@heroui/react';
+import { Eye, PencilToLine, TrashBin } from '@gravity-ui/icons';
+import { Button, Table } from '@heroui/react';
 import React from 'react';
 
 const RecruiterJobs = async () => {
@@ -32,8 +33,11 @@ const RecruiterJobs = async () => {
                                         <Table.Cell>{job.deadline}</Table.Cell>
                                         <Table.Cell>{job.status.charAt(0).toUpperCase() + job.status.slice(1)}</Table.Cell>
                                         <Table.Cell>
-                                            <button className="btn btn-primary">Edit</button>
-                                            <button className="btn btn-danger ml-2">Delete</button>
+                                            <div className='flex gap-2'>
+                                                <Button variant='outline' className=" "><Eye /></Button>
+                                                <Button variant='outline' className=" border border-green-500  text-green-500"><PencilToLine /></Button>
+                                                <Button variant='outline' className=" border border-red-500 text-red-500"><TrashBin /></Button>
+                                            </div>
                                         </Table.Cell>
                                     </Table.Row>
                                 ))}

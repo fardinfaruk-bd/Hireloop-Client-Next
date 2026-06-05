@@ -1,0 +1,16 @@
+"use server";
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+export const serverMutation = async (path, data) => {
+    const res = await fetch(`${baseUrl}${path}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+
+    //handle 401, 403, 500 errors here and throw appropriate messages for the client to display
+
+    return res.json();
+}
