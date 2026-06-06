@@ -1,21 +1,11 @@
-"use server";
+import { serverFetch } from "../core/server";
+import { getUserSession } from "../core/session";
 
-import { serverMutation } from "../core/server";
-
-export const createCompany = async(newCompany) => {
-    return serverMutation('/api/companies', newCompany);
+export const getRecruiterCompany = async (recruiterId) => {
+    return await serverFetch(`/api/my/companies?recruiterId=${recruiterId}`);
 }
 
-
-// const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-
-// export const createCompany = async (companyData) => {
-//     const res = await fetch(`${baseUrl}/api/companies`, {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(companyData),
-//     });
-//     return res.json();
-// }
+export const getLoggedInRecruiterCompany = async () => {
+    const user = await getUserSession();
+    return  getRecruiterCompany(user?.id);
+}
