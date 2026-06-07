@@ -1,11 +1,13 @@
+import { getLoggedInRecruiterCompany } from '@/lib/api/companies';
 import { getCompanyJobs } from '@/lib/api/jobs';
 import { Eye, PencilToLine, TrashBin } from '@gravity-ui/icons';
 import { Button, Table } from '@heroui/react';
 import React from 'react';
 
 const RecruiterJobs = async () => {
-    const companyId = "co_984723984";
-    const jobs = await getCompanyJobs(companyId);
+
+    const company = await getLoggedInRecruiterCompany();
+    const jobs = await getCompanyJobs(company._id);
     console.log(jobs);
     return (
         <div>
@@ -13,7 +15,7 @@ const RecruiterJobs = async () => {
             <div className='p-4'>
                 <Table>
                     <Table.ScrollContainer>
-                        <Table.Content aria-label="Team members" className="min-w-[600px]">
+                        <Table.Content aria-label="Team members" className="min-w-150">
                             <Table.Header>
                                 <Table.Column isRowHeader>Job Title</Table.Column>
                                 <Table.Column>Category</Table.Column>

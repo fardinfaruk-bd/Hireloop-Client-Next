@@ -22,11 +22,7 @@ import { toast } from 'react-toastify';
 export default function PostJobForm({ company }) {
 
   console.log("company info", company);
-  const companyInfo = {
-    name: "TechLoop Global Inc.",
-    status: "Approved",
-    id: "co_984723984"
-  };
+  
 
   const [isRemote, setIsRemote] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -54,10 +50,11 @@ export default function PostJobForm({ company }) {
         requirements: formRawEntries.requirements,
         benefits: formRawEntries.benefits || ""
       },
-      companyId: companyInfo.id,
+      companyId: company._id,
+      CompanyName: company.name,
+      CompanyLogo: company.logo,
       status: "active",
       isPublic: true,
-      createdAt: new Date().toISOString()
     };
 
     const res = await createJob(jobPayload);
@@ -228,7 +225,7 @@ export default function PostJobForm({ company }) {
           <div className="p-4 bg-[#0d0d0f] border border-[#27272a] rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 w-full">
             <div className="space-y-0.5">
               <span className="text-[10px] tracking-wider uppercase font-bold text-zinc-500">Posting Organization</span>
-              <h4 className="text-sm font-semibold text-zinc-200">{companyInfo.name}</h4>
+              <h4 className="text-sm font-semibold text-zinc-200">{company.name}</h4>
             </div>
             <div className="flex items-center gap-2 bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 rounded-full px-3 py-1 text-xs font-medium select-none">
               <CircleCheckFill className="w-3.5 h-3.5 shrink-0" />

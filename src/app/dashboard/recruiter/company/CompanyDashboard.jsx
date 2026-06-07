@@ -132,7 +132,7 @@ export default function CompanyDashboard({recruiter, recruiterCompany}) {
   };
 
   // --- STATE 1: Empty View (No Company Registered) ---
-  if (!company && !isEditing) {
+  if (!company?._id && !isEditing) {
     return (
       <div className="max-w-3xl mx-auto my-12 p-8 bg-[#18181b] border border-[#27272a] rounded-2xl text-center space-y-6">
         <div className="inline-flex p-4 bg-[#212124] rounded-full text-zinc-400 border border-[#27272a]">
