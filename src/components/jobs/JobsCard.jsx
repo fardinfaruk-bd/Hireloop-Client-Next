@@ -4,6 +4,7 @@ import React from "react";
 import { Card, Button, Avatar } from "@heroui/react";
 import { Pin, Briefcase, CircleDollar, ArrowRight } from "@gravity-ui/icons";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function JobCard({ job }) {
   // Fallback in case no prop is provided to prevent crashing
@@ -84,17 +85,13 @@ export default function JobCard({ job }) {
         <span className="text-xs text-neutral-500">
           Deadline: {job.deadline || "N/A"}
         </span>
-        <Button 
+        <Link 
+          href={`/jobs/${job._id}`}
           variant="light" 
           className="text-white hover:text-neutral-300 font-semibold text-sm p-0 gap-2 h-auto min-w-0 bg-transparent transition-opacity hover:opacity-80"
-          endContent={<ArrowRight className="w-4 h-4" />}
-          onPress={() => {
-            // Setup application routing logic here 
-            console.log(`Applying for Job ID: ${job.companyId}`);
-          }}
         >
           Apply Now
-        </Button>
+        </Link>
       </Card.Footer>
 
     </Card>
