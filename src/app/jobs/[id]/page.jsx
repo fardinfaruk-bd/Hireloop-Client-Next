@@ -2,6 +2,7 @@ import { getJobById } from '@/lib/api/jobs';
 import React from 'react';
 import { Avatar, Button } from "@heroui/react";
 import Link from 'next/link';
+import Image from 'next/image';
 
 const page = async ({ params }) => {
     const { id } = await params;
@@ -38,12 +39,15 @@ const page = async ({ params }) => {
 
                     {/* Header: Company Logo & Titles */}
                     <div className="flex items-center gap-4">
-                        {jobDetails?.CompanyLogo && (
-                            <Avatar
-                                src={jobDetails?.CompanyLogo}
+                        {CompanyLogo && (
+                            <Image
+                                src={CompanyLogo || "https://static.vecteezy.com/system/resources/thumbnails/048/216/761/small/modern-male-avatar-with-black-hair-and-hoodie-illustration-free-png.png"}
                                 alt={`${CompanyName} Logo`}
                                 radius="md"
-                                className="w-12 h-12 bg-[#141414] border border-neutral-800 p-1"
+                                width={20}
+                                height={20}
+                                referrerPolicy="no-referrer"
+                                className="w-12 h-12 bg-[#141414] border border-neutral-800 rounded-lg object-contain"
                             />
                         )}
                         <div>

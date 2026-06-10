@@ -7,6 +7,7 @@ import { redirect } from 'next/navigation';
 import React from 'react';
 import JobApply from './JobApply';
 import { getApplicationsByApplicant } from '@/lib/api/applications';
+import { getPlanById } from '@/lib/api/plans';
 
 const ApplyPage = async ({ params }) => {
     const { id } = await params;
@@ -40,16 +41,17 @@ const ApplyPage = async ({ params }) => {
 
     const applications = await getApplicationsByApplicant(user.id);
 
-    const plan = {
-        name: "Free Plan",
-        maxApplicationsPerMonth: 3,
-    };
+
+    const plan = await getPlanById(user?.plan || "seeker_free");
+    
+
+    
     
     const job = await getJobById(id);
-    const hasRemainingApplications = applications.length < plan.maxApplicationsPerMonth;
+    const hasRemainingApplications = applications.length < plan.maxApplicationPerMonth;
     
     // Calculate progress percentage for the custom UI meter
-    const usagePercentage = Math.min((applications.length / plan.maxApplicationsPerMonth) * 100, 100);
+    const usagePercentage = Math.min((applications.length / plan.maxApplicationPerMonth) * 100, 100);
 
     return (
         <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 py-12 px-4 sm:px-6 lg:px-8">
@@ -66,7 +68,7 @@ const ApplyPage = async ({ params }) => {
                             </div>
                             <h2 className="text-base font-semibold text-zinc-800 dark:text-zinc-200 flex items-center gap-2">
                                 <SquareCheck className="w-4 h-4 text-zinc-400" />
-                                Monthly Usage: <span className="text-blue-600 dark:text-blue-400 font-bold">{applications.length}</span> / {plan.maxApplicationsPerMonth} applied
+                                Monthly Usage: <span className="text-blue-600 dark:text-blue-400 font-bold">{applications.length}</span> / {plan.maxApplicationPerMonth} applied
                             </h2>
                         </div>
 
