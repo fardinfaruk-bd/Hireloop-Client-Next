@@ -22,6 +22,7 @@ const JobApply = ({ job, applicant }) => {
             companyName: job?.CompanyName,
             applicantName: applicant?.name,
             applicantEmail: applicant?.email,
+            status: "applied",
             resumeLink: resumeLink,
             additionalInfo: additionalInfo
         };

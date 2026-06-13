@@ -19,11 +19,11 @@ export async function DashboardSidebar() {
         { icon: Gear, href: "/settings", label: "Settings" },
     ]
     const seekerNavLinks = [
-        { icon: LayoutGrid, href: "/dashboard/candidate", label: "Dashboard" },
-        { icon: Search, href: "/dashboard/candidate/jobs", label: "Jobs" },
-        { icon: Bookmark, href: "/dashboard/candidate/saved", label: "Saved Jobs" },
-        { icon: FileText, href: "/dashboard/candidate/applications", label: "Applications" },
-        { icon: CreditCard, href: "/dashboard/candidate/billing", label: "Billing" },
+        { icon: LayoutGrid, href: "/dashboard/seeker", label: "Dashboard" },
+        { icon: Search, href: "/dashboard/seeker/jobs", label: "Jobs" },
+        { icon: Bookmark, href: "/dashboard/seeker/saved", label: "Saved Jobs" },
+        { icon: FileText, href: "/dashboard/seeker/applications", label: "Applications" },
+        { icon: CreditCard, href: "/dashboard/seeker/billing", label: "Billing" },
         { icon: Gear, href: "/settings", label: "Settings" },
     ];
 
@@ -35,7 +35,7 @@ export async function DashboardSidebar() {
     const navItems = navLinksMap[user?.role];
 
     const navContent = <nav className="flex flex-col gap-1">
-        {navItems.map((item) => (
+        {navItems?.map((item) => (
             <Link key={item.label} href={item.href}>
 
                 <button

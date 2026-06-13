@@ -2,21 +2,21 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Avatar, Button } from "@heroui/react";
-import { authClient } from "@/lib/auth-client";
-
+import { Button } from "@heroui/react";
+import { useSession, signOut } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const {
-    data: session,
-    isPending, //loading state
-    error, //error object
-    refetch //refetch the session
-  } = authClient.useSession()
-
+  const { data: session } = useSession();
 
   const user = session?.user;
+  const router = useRouter();
+  const handleSignOut = async () => {
+    await signOut();
+    router.refresh();
+  }
+
   const navLinks = [
     {
       label: "Browse Jobs",
@@ -33,15 +33,18 @@ export default function Navbar() {
   ];
 
   const dashboardLinks = {
-    seeker: "/dashboard/seeker",
-    recruiter: "/dashboard/recruiter"
-  };
+    seeker: '/dashboard/seeker',
+    recruiter: '/dashboard/recruiter',
+    admin: '/dashboard/admin'
+  }
 
   if (user?.email) {
-    navLinks.push({
-      label: "Dashboard",
-      href: `${dashboardLinks[user.role || "seeker"]}`,
-    });
+    navLinks.push(
+      {
+        label: 'Dashboard',
+        href: dashboardLinks[user?.role || 'seeker']
+      }
+    )
   }
 
   return (
@@ -49,7 +52,7 @@ export default function Navbar() {
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* LOGO */}
         <Link href="/" className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-linear-to-br from-violet-600 to-fuchsia-500 shadow-lg">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-600 to-fuchsia-500 shadow-lg">
             <span className="text-xl font-bold text-white">P</span>
           </div>
 
@@ -83,13 +86,13 @@ export default function Navbar() {
 
             {/* Auth Links */}
             <div className="flex items-center gap-4">
-              {isPending ? <div className="flex items-center justify-center py-10">
-                <div className="h-5 w-5 animate-spin rounded-full border-4 border-zinc-300 border-t-blue-600 dark:border-zinc-700 dark:border-t-blue-400"></div>
-              </div>
-                : user ? <>
-                  <p>Welcome! <strong>{user.name}</strong></p>
-                  <Button variant="danger" onClick={() => authClient.signOut()}>Sign Out</Button>
-                </>
+              {
+                user ?
+                  <>
+                    Hi, {user.name}!
+                    <Button onClick={handleSignOut}
+                      variant="danger">Sign Out</Button>
+                  </>
                   : <>
                     <Link
                       href="/signin"
@@ -97,17 +100,15 @@ export default function Navbar() {
                     >
                       Sign In
                     </Link>
-                    <Link href="/signup">
-                      <Button
-                        radius="lg"
-                        className="h-11 bg-white px-6 text-sm font-semibold text-black hover:bg-gray-200"
-                      >
-                        Get Started
-                      </Button>
-                    </Link>
+                    <Button
+                      as={Link}
+                      href="/signup"
+                      radius="lg"
+                      className="h-11 bg-white px-6 text-sm font-semibold text-black hover:bg-gray-200"
+                    >
+                      Get Started
+                    </Button>
                   </>}
-
-
 
 
             </div>
@@ -177,21 +178,21 @@ export default function Navbar() {
             <div className="border-t border-white/10 pt-4">
               <div className="flex flex-col gap-3">
                 <Link
-                  href="/signin"
+                  href="/login"
                   className="rounded-xl px-4 py-3 text-base font-medium text-violet-400 transition hover:bg-white/5"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Sign In
                 </Link>
 
-                <Link href={"/signup"}>
-                  <Button
-                    className="bg-white font-semibold text-black"
-                    radius="lg"
-                  >
-                    Get Started
-                  </Button>
-                </Link>
+                <Button
+                  as={Link}
+                  href="/register"
+                  className="bg-white font-semibold text-black"
+                  radius="lg"
+                >
+                  Get Started
+                </Button>
               </div>
             </div>
           </div>
