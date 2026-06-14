@@ -1,6 +1,7 @@
 import React from 'react';
 import { Lock, LayoutGrid } from 'lucide-react';
 import { getUserSession } from '@/lib/core/session';
+import Link from 'next/link';
 
 export default async function UnauthorizedPage() {
     const user = await getUserSession();
@@ -19,12 +20,12 @@ export default async function UnauthorizedPage() {
       </p>
 
       <div className="mt-8 flex flex-col sm:flex-row gap-4">
-        <a
-          href="/login"
+        <Link
+          href="/signin"
           className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all"
         >
           Sign In
-        </a>
+        </Link>
         
         <a
           href={`/dashboard/${user?.role}`}
