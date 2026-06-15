@@ -2,6 +2,8 @@
 
 import React from 'react';
 import { Table, Button } from '@heroui/react';
+import { updateCompany } from '@/lib/actions/companies';
+import { toast } from 'react-toastify';
 
 const getStatusStyles = (status) => {
     switch (status?.toLowerCase()) {
@@ -16,9 +18,19 @@ const getStatusStyles = (status) => {
 };
 
 const CompanyTable = ({ companies }) => {
-    const handleApprove = (id) => console.log(`Approving: ${id}`);
-    const handleReject = (id) => console.log(`Rejecting: ${id}`);
-
+    const handleApprove = async(id) => {
+        const result = await updateCompany(id, {status : "Approved"});
+        if(result.modifiedCount){
+            toast.success("Company approved successfully!");
+        }
+    };
+    const handleReject = async(id) => {
+        const result = await updateCompany(id, {status : "Rejected"});
+        if(result.modifiedCount){
+            toast.success("Company rejected successfully!");
+        }
+    }
+    console.log(companies)
     return (
         <Table className="bg-[#18181c] border border-neutral-800 rounded-xl overflow-hidden shadow-xl">
             <Table.ScrollContainer>
