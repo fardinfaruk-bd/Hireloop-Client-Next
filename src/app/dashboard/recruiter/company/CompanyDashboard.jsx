@@ -27,7 +27,7 @@ import {
 
 import { createCompany } from "@/lib/actions/companies";
 import { toast } from "react-toastify";
-import Image from "next/image";
+
 
 export default function CompanyDashboard({recruiter, recruiterCompany}) {
   // Mock State for Company Data (replace with database fetching / better-auth session logic)
@@ -111,13 +111,15 @@ export default function CompanyDashboard({recruiter, recruiterCompany}) {
       employeeCount: formData.get("employeeCount"),
       description: formData.get("description"),
       logo: logoPreview || (company?.logo || ""),
-      status: company?.status || "Pending", // Retain current status or reset to Pending on edits
+      status: company && company?.status ? company?.status : "Pending", // Retain current status or reset to Pending on edits
       recruiterId: recruiter.id // Associate company with current user
     };
 
     const payload = await createCompany(updatedData); // Call server action to save data
 
     if(payload.insertedId){
+      const saveCompany = {...company, _id: payload.insertedId};
+      setCompany(saveCompany);
       toast.success("Company profile created successfully! Awaiting admin approval.");
     }
 

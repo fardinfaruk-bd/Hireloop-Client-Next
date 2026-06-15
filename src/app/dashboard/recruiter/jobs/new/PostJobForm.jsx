@@ -1,28 +1,30 @@
 "use client";
 
 import React, { useState } from 'react';
-import { 
-  Form, 
-  Fieldset, 
-  TextField, 
-  Label, 
-  Input, 
-  TextArea, 
-  Select, 
-  ListBox, 
-  FieldError, 
-  Button, 
+import {
+  Form,
+  Fieldset,
+  TextField,
+  Label,
+  Input,
+  TextArea,
+  Select,
+  ListBox,
+  FieldError,
+  Button,
+  Card,
 } from '@heroui/react';
-import { Briefcase, Pin, FileText, CircleCheckFill, ArrowUpRight } from '@gravity-ui/icons';
+import { Briefcase, Pin, FileText, CircleCheckFill, ArrowUpRight, CircleXmarkFill, ArrowsRotateLeft } from '@gravity-ui/icons';
 import { createJob } from '@/lib/actions/jobs';
 import { redirect } from 'next/navigation';
 import { toast } from 'react-toastify';
+import { PersonStanding } from 'lucide-react';
 
 
 export default function PostJobForm({ company }) {
 
   console.log("company info", company);
-  
+
 
   const [isRemote, setIsRemote] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -58,7 +60,7 @@ export default function PostJobForm({ company }) {
     };
 
     const res = await createJob(jobPayload);
-    if(res.insertedId) {
+    if (res.insertedId) {
       toast.success("Job posted successfully!");
       e.target.reset();
       redirect("/dashboard/recruiter/jobs");
@@ -68,15 +70,29 @@ export default function PostJobForm({ company }) {
   return (
     <div className="bg-[#09090b] min-h-screen text-white p-6 sm:p-10 flex justify-center items-start">
       <div className="max-w-4xl w-full space-y-8">
-        
+
         <div>
           <h1 className="text-2xl font-semibold text-zinc-100 tracking-tight">Post a New Job</h1>
           <p className="text-sm text-zinc-400 mt-1">Enter your operational role parameters to push an opening to the live job board.</p>
         </div>
+        <div className="p-4 bg-[#0d0d0f] border border-[#27272a] rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 w-full">
+          <div className="space-y-0.5">
+            <span className="text-[10px] tracking-wider uppercase font-bold text-zinc-500">Posting Organization</span>
+            <h4 className="text-sm font-semibold text-zinc-200">{company.name}</h4>
+          </div>
+          {company.status === "Approved" ? (<div className="flex items-center gap-2 bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 rounded-full px-3 py-1 text-xs font-medium select-none">
+            <CircleCheckFill className="w-3.5 h-3.5 shrink-0" />
+            Organization Account Approved
+          </div>) : (<div className="flex items-center gap-2 bg-rose-500/10 text-rose-400 border border-rose-500/25 rounded-full px-3 py-1 text-xs font-medium select-none">
+            <CircleXmarkFill className="w-3.5 h-3.5 shrink-0" />
+            <p>Organization Account Pending</p>
+          </div>
+          )}
+        </div>
 
-        <Form 
-          onSubmit={handleJobSubmit} 
-          validationBehavior="aria" 
+        {company.status === "Approved" ? <Form
+          onSubmit={handleJobSubmit}
+          validationBehavior="aria"
           className="space-y-8 bg-[#18181b] border border-[#27272a] rounded-2xl p-6 sm:p-8 shadow-sm"
         >
           {/* Section 1: Job Info */}
@@ -133,7 +149,7 @@ export default function PostJobForm({ company }) {
                   <Label className="text-xs font-medium text-zinc-400">Minimum Salary</Label>
                   <Input placeholder="e.g. 50000" className="bg-[#212124] border border-[#27272a] rounded-lg text-white px-3 py-1.5 text-sm" />
                 </TextField>
-                
+
                 <TextField isRequired name="salaryMax" type="number" className="flex flex-col gap-1">
                   <Label className="text-xs font-medium text-zinc-400">Maximum Salary</Label>
                   <Input placeholder="e.g. 90000" className="bg-[#212124] border border-[#27272a] rounded-lg text-white px-3 py-1.5 text-sm" />
@@ -160,9 +176,9 @@ export default function PostJobForm({ company }) {
               {/* Location Visibility Switch Toggle */}
               <div className="md:col-span-2 flex flex-col gap-4 mt-2">
                 <div className="flex items-center gap-3">
-                  <input 
-                    type="checkbox" 
-                    id="remoteToggle" 
+                  <input
+                    type="checkbox"
+                    id="remoteToggle"
                     checked={isRemote}
                     onChange={(e) => setIsRemote(e.target.checked)}
                     className="w-4 h-4 rounded border-zinc-700 bg-zinc-800 accent-zinc-400 text-zinc-950 cursor-pointer"
@@ -221,17 +237,8 @@ export default function PostJobForm({ company }) {
             </Fieldset.Group>
           </Fieldset>
 
-          {/* Section 3: Company Card */}
-          <div className="p-4 bg-[#0d0d0f] border border-[#27272a] rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 w-full">
-            <div className="space-y-0.5">
-              <span className="text-[10px] tracking-wider uppercase font-bold text-zinc-500">Posting Organization</span>
-              <h4 className="text-sm font-semibold text-zinc-200">{company.name}</h4>
-            </div>
-            <div className="flex items-center gap-2 bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 rounded-full px-3 py-1 text-xs font-medium select-none">
-              <CircleCheckFill className="w-3.5 h-3.5 shrink-0" />
-              Organization Account Approved
-            </div>
-          </div>
+
+
 
           {/* Footer controls */}
           <div className="pt-4 flex justify-end items-center gap-3 border-t border-[#27272a] w-full">
@@ -243,7 +250,24 @@ export default function PostJobForm({ company }) {
               <ArrowUpRight className="w-4 h-4" />
             </Button>
           </div>
-        </Form>
+        </Form> : <Card className="flex h-56 items-center justify-center rounded-2xl border shadow-sm">
+          <div className="flex flex-col items-center gap-4 text-center">
+            <div className="rounded-full bg-blue-100 p-4">
+              <ArrowsRotateLeft className="h-10 w-10 text-blue-600" />
+            </div>
+
+            <div className="space-y-1">
+              <h3 className="text-lg font-semibold ">
+                Approval Pending
+              </h3>
+
+              <p className="max-w-xs text-sm text-slate-500">
+                Your account is currently under review. Please wait while we process
+                your approval request.
+              </p>
+            </div>
+          </div>
+        </Card>}
       </div>
     </div>
   );
