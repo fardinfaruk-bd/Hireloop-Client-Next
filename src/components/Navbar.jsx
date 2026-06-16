@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { data: session } = useSession();
+  const { data: session, isPending } = useSession();
 
   const user = session?.user;
   const router = useRouter();
@@ -86,7 +86,7 @@ export default function Navbar() {
 
             {/* Auth Links */}
             <div className="flex items-center gap-4">
-              {
+              {isPending ? <div className="h-6 w-6 animate-spin rounded-full border-b-2 border-white"></div> :
                 user ?
                   <>
                     Hi, {user.name}!
