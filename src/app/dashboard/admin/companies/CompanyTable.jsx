@@ -43,6 +43,7 @@ const CompanyTable = ({ companies }) => {
                         <Table.Column className="text-neutral-400 font-medium py-4 px-6 text-left">Recruiter Email</Table.Column>
                         <Table.Column className="text-neutral-400 font-medium py-4 px-6 text-left">Industry</Table.Column>
                         <Table.Column className="text-neutral-400 font-medium py-4 px-6 text-left">Status</Table.Column>
+                        <Table.Column className="text-neutral-400 font-medium py-4 px-6 text-left">Jobs</Table.Column>
                         <Table.Column className="text-neutral-400 font-medium py-4 px-6 text-left">Date Submitted</Table.Column>
                         <Table.Column className="text-neutral-400 font-medium py-4 px-6 text-right">Actions</Table.Column>
                     </Table.Header>
@@ -82,6 +83,7 @@ const CompanyTable = ({ companies }) => {
                                         </div>
                                     </Table.Cell>
 
+                                    <Table.Cell className="py-4 px-6 text-neutral-400 text-sm">{company.jobCount}</Table.Cell>
                                     <Table.Cell className="py-4 px-6 text-neutral-400 text-sm">{formattedDate}</Table.Cell>
 
                                     <Table.Cell className="py-4 px-6 text-right">
