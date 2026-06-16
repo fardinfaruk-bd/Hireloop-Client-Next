@@ -9,6 +9,15 @@ export const serverFetch = async (path) => {
     return res.json();
 }
 
+export const protectedFetch = async(path) =>{
+    const res = await fetch(`${baseUrl}${path}`,{
+        headers: await authHeader(),
+    });
+
+    //handle 401, 403, 500 errors here and throw appropriate messages for the client to display
+    return res.json();
+}
+
 export const serverMutation = async (path, data, method = 'POST') => {
     const res = await fetch(`${baseUrl}${path}`, {
         method: method,
@@ -18,9 +27,7 @@ export const serverMutation = async (path, data, method = 'POST') => {
         },
         body: JSON.stringify(data),
     });
-
     //handle 401, 403, 500 errors here and throw appropriate messages for the client to display
-
     return res.json();
 }
 
