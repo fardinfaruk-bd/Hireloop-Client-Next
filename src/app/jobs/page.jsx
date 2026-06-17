@@ -15,7 +15,7 @@ export default async function page() {
 
       {/* Pass data to the Client Component for interactive filtering */}
       <div className="px-8 pb-12">
-        <FilteredJobsContainer initialJobs={jobs} />
+        <FilteredJobsContainer jobs={jobs} />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   TextField, 
   InputGroup, 
@@ -9,6 +9,7 @@ import {
 
 // Optional: Lucide icons play beautifully with dark UIs
 import { Search, Briefcase, MapPin, DollarSign } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export default function JobFilters({ onFilterChange }) {
   // State management for filters
@@ -16,6 +17,29 @@ export default function JobFilters({ onFilterChange }) {
   const [jobType, setJobType] = useState("all");
   const [category, setCategory] = useState("all");
   const [salaryRange, setSalaryRange] = useState("all");
+
+const router = useRouter();
+
+
+  useEffect(() => {
+    const sp = new URLSearchParams();
+    if(search){
+      sp.set("search", search);
+    }
+    if(jobType !== "all"){
+      sp.set("jobType", jobType);
+    }
+    if(category !== "all"){
+      sp.set("category", category);
+    }
+    if(salaryRange !== "all"){
+      sp.set("salaryRange", salaryRange);
+    }
+
+    console.log("search Params", sp.toString());
+    const path = `?${sp.toString()}`;
+    router.push(path);
+  }, [router, jobType, category, salaryRange, search]);
 
   // Handler to bubble up state changes to the parent page component
   const handleFilterUpdate = (updatedFilters) => {

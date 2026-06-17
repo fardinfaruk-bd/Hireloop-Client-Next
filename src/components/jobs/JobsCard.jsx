@@ -20,8 +20,6 @@ export default function JobCard({ job }) {
   const displayDescription = typeof job.description === "object" 
     ? job.description.responsibilities 
     : job.description;
-  
-    console.log(job, "jobs from card");
 
   return (
     <Card className="w-full max-w-[400px] bg-[#121212] border border-neutral-800 text-white p-5 rounded-2xl shadow-xl transition-all hover:border-neutral-700">
