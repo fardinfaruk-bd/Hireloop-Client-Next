@@ -11,12 +11,13 @@ import {
 import { Search, Briefcase, MapPin, DollarSign } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
-export default function JobFilters({ onFilterChange }) {
+
+export default function JobFilters({ onFilterChange, filters }) {
   // State management for filters
-  const [search, setSearch] = useState("");
-  const [jobType, setJobType] = useState("all");
-  const [category, setCategory] = useState("all");
-  const [salaryRange, setSalaryRange] = useState("all");
+  const [search, setSearch] = useState(filters.search || "");
+  const [jobType, setJobType] = useState(filters.type ||"all");
+  const [category, setCategory] = useState(filters.category ||"all");
+  const [salaryRange, setSalaryRange] = useState(filters.salaryRange ||"all");
 
 const router = useRouter();
 
@@ -27,7 +28,7 @@ const router = useRouter();
       sp.set("search", search);
     }
     if(jobType !== "all"){
-      sp.set("jobType", jobType);
+      sp.set("type", jobType);
     }
     if(category !== "all"){
       sp.set("category", category);

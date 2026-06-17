@@ -1,9 +1,17 @@
 import FilteredJobsContainer from "@/components/jobs/FilteredJobsContainer";
 import { getJobs } from "@/lib/api/jobs";
 
-export default async function page() {
+export default async function page({ searchParams }) {
+  const searchQuery = await searchParams
+  console.log("searchQuery", searchQuery);
+
+  const querySearch = new URLSearchParams(searchQuery);
+  const queryString = querySearch.toString();
+  
+  console.log("searchQuery", searchQuery, queryString);
+
   // Fetch data on the server
-  const jobs = await getJobs();
+  const jobs = await getJobs(queryString);
 
   return (
     <div className="bg-black min-h-screen">
@@ -15,7 +23,7 @@ export default async function page() {
 
       {/* Pass data to the Client Component for interactive filtering */}
       <div className="px-8 pb-12">
-        <FilteredJobsContainer jobs={jobs} />
+        <FilteredJobsContainer searchQuery = {searchQuery} jobs={jobs} />
       </div>
     </div>
   );

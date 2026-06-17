@@ -4,7 +4,7 @@ import React, { useState, useMemo } from 'react';
 import JobCard from "@/components/jobs/JobsCard";
 import JobFilters from './JobFilters';
 
-export default function FilteredJobsContainer({ jobs }) {
+export default function FilteredJobsContainer({ jobs, searchQuery }) {
   // Store the active filter criteria
   const [filters, setFilters] = useState({
     search: "",
@@ -55,7 +55,7 @@ export default function FilteredJobsContainer({ jobs }) {
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       {/* 1. Filter Input Controls bar */}
-      <JobFilters onFilterChange={(newFilters) => setFilters(newFilters)} />
+      <JobFilters onFilterChange={(newFilters) => setFilters(newFilters)} filters={searchQuery}/>
 
       {/* 2. Dynamic Results Count */}
       <div className="text-zinc-500 text-sm pl-2">
